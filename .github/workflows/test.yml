@@ -1,0 +1,24 @@
+name: Test package
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.10', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install '.[test]' build
+      - run: python -m pytest -q
+      - run: python -m build
+      - run: python -m pip install --force-reinstall --no-deps dist/*.whl
+      - name: Import installed wheel outside checkout
+        working-directory: /tmp
+        run: python -c 'from langchain_mailchannels import MailChannelsSendEmailTool'

@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "langchain-mailchannels"
+version = "0.1.0"
+description = "MailChannels Email API tool for LangChain"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+dependencies = ["langchain-core>=1.6.6,<2", "mailchannels>=1.5.0,<2", "pydantic[email]>=2.7,<3"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<9", "responses>=0.25,<1", "pytest-asyncio>=0.24,<2"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[project.urls]
+Source = "https://github.com/mailchannels/langchain-mailchannels"
+Documentation = "https://github.com/mailchannels/langchain-mailchannels#readme"
+Issues = "https://github.com/mailchannels/langchain-mailchannels/issues"
