@@ -63,8 +63,9 @@ then verify https://pypi.org/project/langchain-mailchannels/ for the expected ve
 owner, source links, files and attestations. Install the exact version in a clean environment
 and exercise the intercepted-HTTP tests. Update README installation instructions and the
 matching GitHub release only after registry verification. A tag or uploaded GitHub artifact
-alone is not a PyPI release. Submit the LangChain external-docs entry afterward and verify
-its public catalog page separately.
+alone is not a PyPI release. Afterward, file LangChain's Integration listing issue form
+(https://github.com/langchain-ai/docs/issues/new?template=06-integration-submission.yml);
+manual docs PRs are auto-closed. Verify its public catalog page separately.
 
 References:
 - https://docs.pypi.org/trusted-publishers/adding-a-publisher/
