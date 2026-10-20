@@ -40,8 +40,8 @@ def main():
         result = validate(repo, args.tag, args.require_tag)
         if args.checkout:
             subprocess.run(['git', 'checkout', '--detach', result['commit']], check=True)
-    except (ValueError, KeyError, subprocess.CalledProcessError):
-        raise SystemExit('Release validation failed: verify tag, main ancestry and package metadata.')
+    except (ValueError, KeyError, subprocess.CalledProcessError) as exc:
+        raise SystemExit(f'Release validation failed: {exc}')
     print(json.dumps(result, indent=2))
 
 
