@@ -42,3 +42,7 @@ docker run --rm -v "$PWD:/src:ro" python:3.13-slim sh /src/tests/container-check
 ```
 
 The container script tests the released SDK, builds a source distribution and wheel, then verifies import of the installed wheel outside the source tree. CI also checks Python 3.12.
+
+Release operators: see [RELEASING.md](RELEASING.md) for candidate builds, the exact
+company PyPI trusted-publisher settings, artifact review and registry verification.
+Publishing is disabled until explicitly configured; no release is implied by green CI.
