@@ -1,12 +1,10 @@
 """Release guard tests use temporary Git repositories and never contact PyPI."""
-import importlib.util
 from pathlib import Path
 import subprocess
 import tempfile
 import unittest
 
-spec = importlib.util.spec_from_file_location('release_guard', Path(__file__).with_name('validate_release.py'))
-guard = importlib.util.module_from_spec(spec); spec.loader.exec_module(guard)
+import validate_release as guard
 
 class ReleaseGuard(unittest.TestCase):
     def setUp(self):
