@@ -43,6 +43,12 @@ docker run --rm -v "$PWD:/src:ro" python:3.13-slim sh /src/tests/container-check
 
 The container script tests the released SDK, builds a source distribution and wheel, then verifies import of the installed wheel outside the source tree. CI also checks Python 3.12.
 
+## Support
+
+This project is supported by the MailChannels team on a best-effort basis. The best way to get support is to file an issue on GitHub: https://github.com/mailchannels/langchain-mailchannels/issues
+
+If you are a MailChannels customer and have a problem with the operation of the MailChannels service, you can get support at https://support.mailchannels.com/
+
 Release operators: see [RELEASING.md](RELEASING.md) for candidate builds, the exact
 company PyPI trusted-publisher settings, artifact review and registry verification.
 Publishing is disabled until explicitly configured; no release is implied by green CI.
