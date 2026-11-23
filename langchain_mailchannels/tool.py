@@ -1,11 +1,21 @@
 """Application-scoped email tool using the official MailChannels SDK."""
 
+from importlib.metadata import version
 from typing import Any
 
 from langchain_core.tools import BaseTool, ToolException
 from mailchannels import Client, MailChannelsError, RequestsClient, SendResponse
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, PrivateAttr, SecretStr
 from requests import RequestException
+
+# Named before the SDK's own token so usage reporting can attribute the traffic.
+USER_AGENT = f"mailchannels-langchain/{version('langchain-mailchannels')}"
+
+
+class _UserAgentClient(RequestsClient):
+    def request(self, method: str, url: str, *, headers: dict[str, str], **kwargs: Any):
+        headers = {**headers, "User-Agent": f"{USER_AGENT} {headers.get('User-Agent', '')}".strip()}
+        return super().request(method, url, headers=headers, **kwargs)
 
 
 class EmailInput(BaseModel):
@@ -85,7 +95,7 @@ class MailChannelsSendEmailTool(BaseTool):
             "subject": message.subject, "content": content,
         }
         try:
-            with RequestsClient(timeout=30.0) as transport:
+            with _UserAgentClient(timeout=30.0) as transport:
                 client = Client(
                     api_key=self._key.get_secret_value(),
                     base_url="https://api.mailchannels.net/tx/v1",

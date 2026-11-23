@@ -41,6 +41,8 @@ def test_dry_run_payload_and_schema(monkeypatch):
     req = responses.calls[0].request
     assert req.url == URL + "?dry-run=true"
     assert req.headers["X-Api-Key"] == KEY
+    import mailchannels.version
+    assert req.headers["User-Agent"] == "mailchannels-langchain/0.1.0 mailchannels-python/" + mailchannels.version.get_version()
     payload = json.loads(req.body)
     assert payload["from"] == {"email": "sender@example.com"}
     assert payload["personalizations"] == [{"to": [{"email": "recipient@example.net"}]}]
